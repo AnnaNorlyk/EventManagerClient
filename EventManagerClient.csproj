@@ -8,4 +8,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\DTOs\" />
+    <Folder Include="Application\UseCases\Users\" />
+    <Folder Include="Domain\Interfaces\" />
+    <Folder Include="Infastructure\" />
+    <Folder Include="Tests\" />
+  </ItemGroup>
+
 </Project>

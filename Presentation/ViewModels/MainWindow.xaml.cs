@@ -22,17 +22,18 @@ namespace EventManagerClient.Presentation.View
         {
             var eventsWindow = new EventsWindow();
             eventsWindow.Show();
-            Close(); 
+            Close();
 
-        private void ReportsButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Navigating to Reports.");
+            void ReportsButton_Click(object sender, RoutedEventArgs e)
+            {
+                MessageBox.Show("Navigating to Reports.");
 
-        }
+            }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown(); 
+            void CloseButton_Click(object sender, RoutedEventArgs e)
+            {
+                
+            }
         }
     }
 }
