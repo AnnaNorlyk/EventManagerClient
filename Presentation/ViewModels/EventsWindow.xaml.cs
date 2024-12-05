@@ -35,7 +35,7 @@ namespace EventManagerClient.Presentation.View
             // Sample data for Events
             Events = new ObservableCollection<Event>
             {
-                new Event { Name = "Annual Gala", Date = "2023-12-10", Location = "Conference Center" },
+                new Event { Name = "Annual Gala", Date = "2023-12-10", Location = "Conference Center of the new world order" },
                 new Event { Name = "Tech Meetup", Date = "2023-11-15", Location = "Tech Hub" }
             };
 
