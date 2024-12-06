@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventManagerClient.Application.UseCases.Events
+namespace EventManagerClient.AppLayer.UseCases.Events
 {
-    internal class GetEventsUseCase
+    internal class CreateEventUseCase
     {
     }
 }

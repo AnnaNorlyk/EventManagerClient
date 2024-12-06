@@ -8,9 +8,9 @@ namespace EventManagerClient.Domain.Entities
 {
     public class EventRequest
     {
-        public string RequesterName { get; set; }
+        public string? RequesterName { get; set; }
         public int RequesterID { get; set; }
-        public string EventName { get; set; }
-        public string EventDescription { get; set; }
+        public string? EventName { get; set; }
+        public string? EventDescription { get; set; }
     }
 }

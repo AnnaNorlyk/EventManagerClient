@@ -11,27 +11,18 @@ namespace EventManagerClient.Presentation.View
         public UsersWindow()
         {
             InitializeComponent();
-
-            // Example data for Requests
             Requests = new ObservableCollection<RequestItem>
-            {
-                new RequestItem
-                {
-                    RequesterName = "John Doe",
-                    RequesterID = 12345,
-                    RequesterEventCount = 5,
-                    RequesterDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                },
-                new RequestItem
-                {
-                    RequesterName = "Jane Doe",
-                    RequesterID = 67890,
-                    RequesterEventCount = 3,
-                    RequesterDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                }
-            };
-
+        {
+            new RequestItem { RequesterName = "John Doe", RequesterID = 12345, RequesterEventCount = 5, RequesterDesc = "Lorem ipsum dolor sit amet." },
+            new RequestItem { RequesterName = "Jane Doe", RequesterID = 67890, RequesterEventCount = 3, RequesterDesc = "Lorem ipsum dolor sit amet." }
+        };
             DataContext = this;
+        }
+    
+
+    private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close(); 
         }
 
         private void Approve_Click(object sender, RoutedEventArgs e)
@@ -44,13 +35,6 @@ namespace EventManagerClient.Presentation.View
             MessageBox.Show("Afvist");
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
-        {
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
-            Close();
-        }
-
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Ret");
@@ -60,6 +44,5 @@ namespace EventManagerClient.Presentation.View
         {
             MessageBox.Show("Slet");
         }
-
     }
 }

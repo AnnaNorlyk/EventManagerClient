@@ -1,19 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace EventManagerClient.Domain.Entities
 {
     public class Event
     {
-        public string Name { get; set; }
-        public string Category { get; set; }
-        public string Description { get; set; }
-        public string EventId { get; set; }
-        public string Date { get; set; }
-        public string Location { get; set; }
-        public string Time { get; set; }
+        [JsonProperty("eventId")]
+        public int EventId { get; set; }
+
+        [JsonProperty("location")]
+        public string? Location { get; set; }
+
+        [JsonProperty("eventName")]
+        public string? EventName { get; set; }
+
+        [JsonProperty("eventDescription")]
+        public string? EventDescription { get; set; }
+
+        [JsonProperty("eventCategory")]
+        public string? EventCategory { get; set; }
+
+        [JsonProperty("eventStart")]
+        public string? EventStart { get; set; }
+
+        [JsonProperty("eventEnd")]
+        public string? EventEnd { get; set; }
+
+        [JsonProperty("eventStatus")]
+        public string? EventStatus { get; set; }
+
+        [JsonProperty("eventCreationTimestamp")]
+        public DateTime EventCreationTimestamp { get; set; }
     }
 }

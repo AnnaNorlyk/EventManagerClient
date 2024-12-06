@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventManagerClient.Application.UseCases.Events
+namespace EventManagerClient.Presentation.ViewModels
 {
-    internal class CreateEventUseCase
+    class UsersViewModel
     {
     }
 }
