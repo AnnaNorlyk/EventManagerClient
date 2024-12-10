@@ -8,7 +8,6 @@ namespace EventManagerClient.Presentation.View
         public MainWindow()
         {
             InitializeComponent();
-             
         }
 
         private void UsersButton_Click(object sender, RoutedEventArgs e)
