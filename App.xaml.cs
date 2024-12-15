@@ -24,10 +24,26 @@ namespace EventManagerClient
 
             // Register view models
             services.AddSingleton<EventsViewModel>();
+            services.AddSingleton<UsersViewModel>();
+
 
             // Register views
             services.AddSingleton<MainWindow>();  // Register MainWindow
             services.AddSingleton<EventsWindow>(); // If needed, register EventsWindow
+            services.AddSingleton<UsersWindow>();
+
+
+            services.AddTransient<EventsWindow>(provider =>
+            {
+                var eventsViewModel = provider.GetRequiredService<EventsViewModel>();
+                return new EventsWindow(eventsViewModel);
+            });
+
+            services.AddTransient<UsersWindow>(provider =>
+            {
+                var usersViewModel = provider.GetRequiredService<UsersViewModel>();
+                return new UsersWindow(usersViewModel);
+            });
 
             // Register HTTP client
             services.AddHttpClient<EventApiService>(client =>

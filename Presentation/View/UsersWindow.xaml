@@ -56,10 +56,10 @@
 
             <!-- Buttons for Requests -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Grid.Row="1">
-                <Button Name="ApproveButton" Content="Godkend" Width="100" Margin="5" Click="Approve_Click"/>
-                <Button Name="RejectButton" Content="Afvis" Width="100" Margin="5" Click="Reject_Click"/>
+                <Button Name="ApproveButton" Content="Godkend" Width="100" Margin="5" />
+                <Button Name="RejectButton" Content="Afvis" Width="100" Margin="5" />
             </StackPanel>
-            <Button Name="BackButton" Content="Tilbage" HorizontalAlignment="Left" Margin="2,-2,0,0" VerticalAlignment="Top" Width="100" Click="Back_Click"/>
+            <Button Name="BackButton" Content="Tilbage" HorizontalAlignment="Left" Margin="2,-2,0,0" VerticalAlignment="Top" Width="100" />
         </Grid>
 
         <!-- Users Window on the Right -->
@@ -85,8 +85,8 @@
 
             <!-- Buttons for Users -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="2">
-                <Button Name="EditButton" Content="Ret" Width="92" Margin="5" Click="Edit_Click"/>
-                <Button Name="DeleteButton" Content="Slet" Width="98" Margin="5" Click="Delete_Click"/>
+                <Button Name="EditButton" Content="Ret" Width="92" Margin="5" />
+                <Button Name="DeleteButton" Content="Slet" Width="98" Margin="5" />
             </StackPanel>
         </Grid>
     </Grid>

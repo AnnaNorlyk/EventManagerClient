@@ -37,7 +37,7 @@ public class EventApiService : IEventRepository
         catch (Exception ex)
         {
             Console.WriteLine($"Exception occurred: {ex.Message}");
-            throw; // Rethrow for higher-level handling
+            throw; 
         }
     }
 

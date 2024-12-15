@@ -7,7 +7,7 @@ namespace EventManagerClient.Presentation.View
     {
         public EventsWindow(EventsViewModel viewModel)
         {
-            InitializeComponent();
+            InitializeComponent(); 
             DataContext = viewModel;
         }
 

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace EventManagerClient.Presentation.ViewModels
 {
-    class UsersViewModel
+    public class UsersViewModel : BaseViewModel
     {
+
     }
 }

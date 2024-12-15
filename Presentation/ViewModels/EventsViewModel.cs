@@ -6,10 +6,11 @@ using System.Windows.Input;
 using System;
 using System.Threading.Tasks;
 using EventManagerClient.Presentation.Commands;
+using System.Windows;
 
 namespace EventManagerClient.Presentation.ViewModels
 {
-    public class EventsViewModel : INotifyPropertyChanged
+    public class EventsViewModel : BaseViewModel
     {
         private readonly GetEventsUseCase _getEventsUseCase;
 
@@ -32,7 +33,7 @@ namespace EventManagerClient.Presentation.ViewModels
             LoadEventsCommand = new RelayCommand(async (param) => await LoadEventsAsync());
             ApproveCommand = new RelayCommand(ApproveRequest);
             RejectCommand = new RelayCommand(RejectRequest);
-            BackCommand = new RelayCommand(Back);
+            BackCommand = new RelayCommand(Back); 
             EditCommand = new RelayCommand(EditEvent);
             DeleteCommand = new RelayCommand(DeleteEvent);
         }
@@ -83,16 +84,11 @@ namespace EventManagerClient.Presentation.ViewModels
             }
         }
 
-        private void Back(object parameter) => Console.WriteLine("Navigating back...");
-        private void EditEvent(object parameter) => Console.WriteLine("Editing event...");
-        private void DeleteEvent(object parameter) => Console.WriteLine("Deleting event...");
+        private void Back(object parameter) => MessageBox.Show("Godkendt");
+        private void EditEvent(object parameter) => MessageBox.Show("Godkendt");
+        private void DeleteEvent(object parameter) => MessageBox.Show("Godkendt");
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
     }
 }
