@@ -114,18 +114,28 @@
             </ListView>
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center" 
-                        Margin="0,10,0,0" Grid.Row="2">
+                        Margin="0,10,0,0" 
+                        Grid.Row="2">
+                
                 <Button Name="EditButton" 
-                        Content="Edit" Width="92" 
-                        Margin="5" Command="{Binding EditCommand}" />
+                        Content="Edit" 
+                        Width="92" 
+                        Margin="5" 
+                        Command="{Binding EditCommand}" />
+                
                 <Button Name="DeleteButton" 
                         Content="Delete" 
                         Width="98" 
-                        Margin="5" Command="{Binding DeleteCommand}" />
+                        Margin="5" 
+                        Command="{Binding DeleteCommand}" />
+                
                 <Button Name="LoadEventsButton" 
                         Content="Load Events" 
                         Width="120" 
-                        Margin="5" Command="{Binding LoadEventsCommand}" />
+                        Margin="5" 
+                        Command="{Binding LoadEventsCommand}"
+                       
+                        />
             </StackPanel>
         </Grid>
     </Grid>

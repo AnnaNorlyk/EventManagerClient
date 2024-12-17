@@ -20,7 +20,7 @@ namespace EventManagerClient.Presentation.View
 
         private void EventsButton_Click(object sender, RoutedEventArgs e)
         {
-            var eventsViewModel = (EventsViewModel)DataContext; // Get ViewModel
+            var eventsViewModel = (EventsViewModel)DataContext; 
             var eventsWindow = new EventsWindow(eventsViewModel);
             this.Hide();
             eventsWindow.ShowDialog();

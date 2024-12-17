@@ -11,6 +11,7 @@ namespace EventManagerClient.Presentation.View
             DataContext = viewModel;
         }
 
+
     }
 
 }
