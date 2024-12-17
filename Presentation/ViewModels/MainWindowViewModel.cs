@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EventManagerClient.Presentation.ViewModels
 {
-    class MainWindowViewModel
+    class MainWindowViewModel : BaseViewModel
     {
     }
 }
