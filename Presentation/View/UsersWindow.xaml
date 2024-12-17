@@ -65,7 +65,7 @@
                         Content="Afvis" 
                         Width="100" 
                         Margin="5" 
-                        Command="{Binding LoadUsersCommand}"/>
+                        />
             </StackPanel>
             <Button Name="BackButton" Content="Tilbage" HorizontalAlignment="Left" Margin="2,-2,0,0" VerticalAlignment="Top" Width="100" />
         </Grid>
@@ -84,6 +84,7 @@
             <!-- ListView for Users -->
             <ListView Name="UserListView" 
                       ItemsSource="{Binding Users}"
+                      SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
                       Margin="0,6,0,0" 
                       Grid.Row="1">
                 <ListView.View>
@@ -98,8 +99,14 @@
 
             <!-- Buttons for Users -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="2">
-                <Button Name="EditButton" Content="Ret" Width="92" Margin="5" />
-                <Button Name="DeleteButton" Content="Slet" Width="98" Margin="5" />
+                <Button Name="EditButton" Content="Ret" Width="92" Margin="5" Command="{Binding EditUserCommand}"/>
+                <Button Name="DeleteButton" Content="Slet" Width="98" Margin="5" Command="{Binding DeleteUserCommand}" />
+                <Button Name="CreateButton" 
+                        Content="Create" 
+                        Width="92" 
+                        Margin="5" 
+                        Command="{Binding CreateUserCommand}" />
+
             </StackPanel>
         </Grid>
     </Grid>

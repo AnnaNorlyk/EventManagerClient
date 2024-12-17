@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace EventManagerClient.AppLayer.UseCases.Users
 {
-    public class EditUserUseCase
+    public class CreateUserUseCase
     {
         private readonly IUserRepository _userRepository;
 
-        public EditUserUseCase(IUserRepository userRepository)
+        public CreateUserUseCase(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -18,8 +18,7 @@ namespace EventManagerClient.AppLayer.UseCases.Users
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
 
-            // Update the user via repository
-            await _userRepository.UpdateUserAsync(user);
+            await _userRepository.CreateUserAsync(user);
         }
     }
 }

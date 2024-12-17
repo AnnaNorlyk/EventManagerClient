@@ -27,6 +27,9 @@ namespace EventManagerClient
             // Register use cases
             services.AddSingleton<GetEventsUseCase>();
             services.AddSingleton<GetUsersUseCase>();
+            services.AddSingleton<DeleteUserUseCase>();
+            services.AddSingleton<EditUserUseCase>();
+            services.AddSingleton<CreateUserUseCase>();
 
             // Register view models
             services.AddSingleton<EventsViewModel>();
@@ -36,6 +39,8 @@ namespace EventManagerClient
             services.AddSingleton<MainWindow>();
             services.AddSingleton<EventsWindow>();
             services.AddSingleton<UsersWindow>();
+            services.AddSingleton<NewUserWindow>();
+            services.AddSingleton<EditUserWindow>();
 
             // Register HTTP clients
             services.AddHttpClient<EventApiService>(client =>

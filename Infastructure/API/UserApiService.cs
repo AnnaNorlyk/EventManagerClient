@@ -3,6 +3,7 @@ using EventManagerClient.Domain.Entities;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Text;
 
 namespace EventManagerClient.Infastructure.API
 {
@@ -15,6 +16,11 @@ namespace EventManagerClient.Infastructure.API
         public UserApiService(HttpClient httpClient)
         {
             _httpClient = httpClient;
+        }
+
+        public async Task<HttpResponseMessage> DeleteUserAsync(int userId)
+        {
+            return await _httpClient.DeleteAsync($"Users/{userId}");
         }
 
         public async Task<List<User>> GetAllUsersAsync()
@@ -37,7 +43,10 @@ namespace EventManagerClient.Infastructure.API
                 {
                     UserId = dto.UserId,
                     UserName = dto.UserName,
-                    Email = dto.UserEmail,
+                    Firstname = dto.Firstname,
+                    Lastname = dto.Lastname,
+                    UserEmail = dto.UserEmail,
+                    UserPassword = dto.UserPassword,
                     EventCount = dto.EventCount
                 }).ToList();
 
@@ -60,7 +69,32 @@ namespace EventManagerClient.Infastructure.API
                 throw;
             }
         }
+
+
+        public async Task UpdateUserAsync(User user)
+        {
+            var jsonContent = new StringContent(
+                JsonConvert.SerializeObject(user),
+                Encoding.UTF8,
+                "application/json"
+            );
+
+            var response = await _httpClient.PutAsync($"Users/{user.UserId}", jsonContent);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task CreateUserAsync(User user)
+        {
+            var jsonContent = new StringContent(
+                JsonConvert.SerializeObject(user),
+                Encoding.UTF8,
+                "application/json"
+            );
+
+            var response = await _httpClient.PostAsync("Users", jsonContent);
+            response.EnsureSuccessStatusCode();
+        }
+
+
     }
-
-
 }

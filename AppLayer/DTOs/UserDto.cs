@@ -15,9 +15,16 @@ namespace EventManagerClient.AppLayer.DTOs
 
         [JsonProperty("userName")]
         public string? UserName { get; set; }
+        [JsonProperty("firstName")]
+        public string? Firstname { get; set; }
+        [JsonProperty("lastName")]
+        public string? Lastname { get; set; }
 
         [JsonProperty("userEmail")]
         public string? UserEmail { get; set; }
+
+        [JsonProperty("userPassword")]
+        public string? UserPassword { get; set; }
 
         [JsonProperty("eventCount")]
         public int EventCount { get; set; }

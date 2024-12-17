@@ -15,6 +15,7 @@ namespace EventManagerClient.Presentation.View
             DataContext = viewModel;
         }
 
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (_viewModel.LoadUsersCommand.CanExecute(null))
