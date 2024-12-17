@@ -12,6 +12,7 @@ namespace EventManagerClient.Presentation.View
         {
             InitializeComponent();
             _serviceProvider = serviceProvider;
+
         }
 
         private void EventsButton_Click(object sender, RoutedEventArgs e)
@@ -37,7 +38,7 @@ namespace EventManagerClient.Presentation.View
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close(); // Properly close the application
+            this.Close();
         }
     }
 

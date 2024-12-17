@@ -2,9 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="clr-namespace:EventManagerClient.Presentation.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:EventsViewModel}"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:viewmodels="clr-namespace:EventManagerClient.Presentation.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:EventsViewModel}"
         mc:Ignorable="d"
-        Title="Begivenheder" Height="450" Width="800">
+        Title="Begivenheder" Height="450" Width="800"
+        Loaded="Window_Loaded">
     <Grid>
         <!-- Layout for Events and Requests -->
         <Grid.ColumnDefinitions>
@@ -106,7 +108,7 @@
                         <GridViewColumn Header="Event Name" 
                                         DisplayMemberBinding="{Binding EventName}" />
                         <GridViewColumn Header="Date" 
-                                        DisplayMemberBinding="{Binding StartDate}" />
+                                        DisplayMemberBinding="{Binding EventCreationTimestamp}" />
                         <GridViewColumn Header="Location" 
                                         DisplayMemberBinding="{Binding Location}" />
                     </GridView>

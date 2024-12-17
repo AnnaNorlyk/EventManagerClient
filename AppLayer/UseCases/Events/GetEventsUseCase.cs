@@ -14,7 +14,7 @@ namespace EventManagerClient.AppLayer.UseCases.Events
 
         public async Task<List<Event>> Execute()
         {
-            return await _eventRepository.GetAllAsync();
+            return await _eventRepository.GetAllEventsAsync();
         }
     }
 }

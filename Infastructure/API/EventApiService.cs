@@ -1,8 +1,9 @@
-﻿using EventManagerClient.Domain.Entities;
+﻿using EventManagerClient.AppLayer.DTOs;
+using EventManagerClient.Domain.Entities;
 using Newtonsoft.Json;
 using System.Net.Http;
 
-public class EventApiService : IEventRepository
+public class EventApiService
 {
     private readonly HttpClient _httpClient;
 
@@ -11,38 +12,43 @@ public class EventApiService : IEventRepository
         _httpClient = httpClient;
     }
 
-    public async Task<List<Event>> GetAllAsync()
+    public async Task<List<Event>> GetAllEventsAsync()
     {
-        try
+        var response = await _httpClient.GetAsync("events");
+        response.EnsureSuccessStatusCode();
+
+        var content = await response.Content.ReadAsStringAsync();
+        var eventDtos = JsonConvert.DeserializeObject<List<EventDto>>(content);
+
+  
+        return eventDtos?.Select(dto => new Event
         {
-            var response = await _httpClient.GetAsync("http://localhost:8080/api/events");
-
-            if (!response.IsSuccessStatusCode)
-            {
-                Console.WriteLine($"Error: API returned status code {response.StatusCode}");
-                return new List<Event>();
-            }
-
-            var content = await response.Content.ReadAsStringAsync();
-            var events = JsonConvert.DeserializeObject<List<Event>>(content);
-
-            if (events == null)
-            {
-                Console.WriteLine("Error: Unable to deserialize the response content.");
-                return new List<Event>();
-            }
-
-            return events;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Exception occurred: {ex.Message}");
-            throw; 
-        }
+            EventId = dto.EventId,
+            Location = dto.Location,
+            EventName = dto.EventName,
+            EventDescription = dto.EventDescription,
+        }).ToList() ?? new List<Event>();
     }
 
-    public Task<Event> GetByIdAsync(int id)
+
+
+
+
+    public async Task<Event> GetEventByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync($"events/{id}");
+        response.EnsureSuccessStatusCode();
+
+        var content = await response.Content.ReadAsStringAsync();
+        var dto = JsonConvert.DeserializeObject<EventDto>(content);
+
+  
+        return new Event
+        {
+            EventId = dto.EventId,
+            Location = dto.Location,
+            EventName = dto.EventName,
+            EventDescription = dto.EventDescription
+        };
     }
 }

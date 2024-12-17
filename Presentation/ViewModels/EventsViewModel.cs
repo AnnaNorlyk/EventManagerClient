@@ -1,12 +1,9 @@
 ﻿using EventManagerClient.AppLayer.UseCases.Events;
 using EventManagerClient.Domain.Entities;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Input;
-using System;
-using System.Threading.Tasks;
 using EventManagerClient.Presentation.Commands;
+using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 
 namespace EventManagerClient.Presentation.ViewModels
 {

@@ -1,5 +1,9 @@
 ﻿using EventManagerClient.AppLayer.UseCases.Events;
-using EventManagerClient.Domain.Entities;
+using EventManagerClient.AppLayer.UseCases.Users;
+using EventManagerClient.Domain.Interfaces;
+using EventManagerClient.Infastructure.API;
+using EventManagerClient.Infastructure.Repos;
+using EventManagerClient.Infrastructure.Repositories;
 using EventManagerClient.Presentation.View;
 using EventManagerClient.Presentation.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,22 +21,34 @@ namespace EventManagerClient
             var services = new ServiceCollection();
 
             // Register repositories
-            services.AddSingleton<IEventRepository, EventApiService>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IEventRepository, EventRepository>();
 
             // Register use cases
             services.AddSingleton<GetEventsUseCase>();
+            services.AddSingleton<GetUsersUseCase>();
 
             // Register view models
             services.AddSingleton<EventsViewModel>();
             services.AddSingleton<UsersViewModel>();
 
-
             // Register views
-            services.AddSingleton<MainWindow>();  // Register MainWindow
-            services.AddSingleton<EventsWindow>(); // If needed, register EventsWindow
+            services.AddSingleton<MainWindow>();
+            services.AddSingleton<EventsWindow>();
             services.AddSingleton<UsersWindow>();
 
+            // Register HTTP clients
+            services.AddHttpClient<EventApiService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:8080/api/");
+            });
 
+            services.AddHttpClient<UserApiService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:8080/api/");
+            });
+
+            // Register views with injected ViewModels
             services.AddTransient<EventsWindow>(provider =>
             {
                 var eventsViewModel = provider.GetRequiredService<EventsViewModel>();
@@ -45,20 +61,12 @@ namespace EventManagerClient
                 return new UsersWindow(usersViewModel);
             });
 
-            // Register HTTP client
-            services.AddHttpClient<EventApiService>(client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:8080/api");
-            });
-
             _serviceProvider = services.BuildServiceProvider();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
-            // Create and show MainWindow
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
         }

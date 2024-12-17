@@ -5,13 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventManagerClient.Infastructure
+namespace EventManagerClient.Domain.Interfaces
 {
-    public interface IEventRepository
+    public interface IUserRepository
     {
-        Task<List<Event>> GetAllAsync();
-        Task<Event> GetByIdAsync(int id);
+        Task<List<User>> GetAllUserAsync();
     }
-
-
 }
