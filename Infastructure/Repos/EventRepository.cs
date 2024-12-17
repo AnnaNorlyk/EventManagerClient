@@ -22,7 +22,7 @@ namespace EventManagerClient.Infrastructure.Repositories
             return await _eventApiService.GetAllEventsAsync();
         }
 
-        public async Task<Event> GetByIdAsync(int id)
+        public async Task<Event> GetByIdAsync(string id)
         {
             var events = await _eventApiService.GetAllEventsAsync();
             return events.FirstOrDefault(e => e.EventId == id);

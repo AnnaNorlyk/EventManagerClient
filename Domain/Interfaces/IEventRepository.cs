@@ -3,5 +3,5 @@
 public interface IEventRepository
 {
     Task<List<Event>> GetAllEventsAsync();
-    Task<Event> GetByIdAsync(int id);
+    Task<Event> GetByIdAsync(string id);
 }

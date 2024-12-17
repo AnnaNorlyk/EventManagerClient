@@ -108,9 +108,9 @@
                         <GridViewColumn Header="Event Name" 
                                         DisplayMemberBinding="{Binding EventName}" />
                         <GridViewColumn Header="Date" 
-                                        DisplayMemberBinding="{Binding EventCreationTimestamp}" />
+                                        DisplayMemberBinding="{Binding EventStart}" />
                         <GridViewColumn Header="Location" 
-                                        DisplayMemberBinding="{Binding Location}" />
+                                        DisplayMemberBinding="{Binding EventLocation}" />
                     </GridView>
                 </ListView.View>
             </ListView>

@@ -10,10 +10,11 @@ namespace EventManagerClient.Domain.Interfaces
     public interface IUserRepository
     {
         Task<List<User>> GetAllUserAsync();
-        Task DeleteUserAsync(int userId);
+        Task DeleteUserAsync(string userId);
 
         Task UpdateUserAsync(User user);
 
         Task CreateUserAsync(User user);
+       
     }
 }

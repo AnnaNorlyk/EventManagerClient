@@ -12,9 +12,9 @@ namespace EventManagerClient.AppLayer.UseCases.Users
             _userRepository = userRepository;
         }
 
-        public async Task Execute(int userId)
+        public async Task Execute(string userId)
         {
-            if (userId <= 0)
+            if (userId != "")
                 throw new ArgumentException("Invalid User ID", nameof(userId));
 
             // Delete the user via repository

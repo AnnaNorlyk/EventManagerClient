@@ -10,10 +10,9 @@ namespace EventManagerClient.AppLayer.DTOs
     public class EventDto
     {
         [JsonProperty("eventId")]
-        public int EventId { get; set; }
+        public string? EventId { get; set; }
 
-        [JsonProperty("location")]
-        public string? Location { get; set; }
+
 
         [JsonProperty("eventName")]
         public string? EventName { get; set; }
@@ -33,8 +32,14 @@ namespace EventManagerClient.AppLayer.DTOs
         [JsonProperty("eventStatus")]
         public string? EventStatus { get; set; }
 
+        [JsonProperty("eventLocation")]
+        public string? EventLocation { get; set; }
+
+        [JsonProperty("userId")]
+        public string? UserId { get; set; } // Link to the User (fk)
+
         [JsonProperty("eventCreationTimestamp")]
-        public DateTime EventCreationTimestamp { get; set; }
+        public DateTime EventCreationTimestamp { get; set; } = DateTime.Now;
     }
 
 }

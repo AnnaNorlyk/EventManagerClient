@@ -17,7 +17,7 @@ namespace EventManagerClient.Infastructure.Repos
             return await _userApiService.GetAllUsersAsync();
         }
 
-        public async Task DeleteUserAsync(int userId)
+        public async Task DeleteUserAsync(string userId)
         {
             var response = await _userApiService.DeleteUserAsync(userId);
             response.EnsureSuccessStatusCode();

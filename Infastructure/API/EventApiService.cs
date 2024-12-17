@@ -24,9 +24,14 @@ public class EventApiService
         return eventDtos?.Select(dto => new Event
         {
             EventId = dto.EventId,
-            Location = dto.Location,
             EventName = dto.EventName,
             EventDescription = dto.EventDescription,
+            EventCategory = dto.EventCategory,
+            EventStart = dto.EventStart,
+            EventEnd = dto.EventEnd,
+            EventStatus = dto.EventStatus,
+            EventLocation = dto.EventLocation,
+            UserId = dto.UserId,
         }).ToList() ?? new List<Event>();
     }
 
@@ -46,9 +51,14 @@ public class EventApiService
         return new Event
         {
             EventId = dto.EventId,
-            Location = dto.Location,
             EventName = dto.EventName,
-            EventDescription = dto.EventDescription
+            EventDescription = dto.EventDescription,
+            EventCategory = dto.EventCategory,
+            EventStart = dto.EventStart,
+            EventEnd = dto.EventEnd,
+            EventStatus = dto.EventStatus,
+            EventLocation = dto.EventLocation,
+            UserId = dto.UserId,
         };
     }
 }

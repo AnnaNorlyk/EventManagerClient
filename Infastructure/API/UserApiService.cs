@@ -1,6 +1,7 @@
 ﻿using EventManagerClient.AppLayer.DTOs;
 using EventManagerClient.Domain.Entities;
 using Newtonsoft.Json;
+using System.Data;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
@@ -18,7 +19,7 @@ namespace EventManagerClient.Infastructure.API
             _httpClient = httpClient;
         }
 
-        public async Task<HttpResponseMessage> DeleteUserAsync(int userId)
+        public async Task<HttpResponseMessage> DeleteUserAsync(string userId)
         {
             return await _httpClient.DeleteAsync($"Users/{userId}");
         }
@@ -42,11 +43,11 @@ namespace EventManagerClient.Infastructure.API
                 var users = userDtos.Select(dto => new User
                 {
                     UserId = dto.UserId,
-                    UserName = dto.UserName,
                     Firstname = dto.Firstname,
                     Lastname = dto.Lastname,
                     UserEmail = dto.UserEmail,
                     UserPassword = dto.UserPassword,
+                    Role = dto.Role,
                     EventCount = dto.EventCount
                 }).ToList();
 

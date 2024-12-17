@@ -92,7 +92,7 @@
                         <GridViewColumn Header="ID"
                                         DisplayMemberBinding="{Binding UserId}" />
                         <GridViewColumn Header="Navn" 
-                                        DisplayMemberBinding="{Binding UserName}" />
+                                        DisplayMemberBinding="{Binding Firstname}" />
                     </GridView>
                 </ListView.View>
             </ListView>
