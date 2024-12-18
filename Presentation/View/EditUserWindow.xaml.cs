@@ -18,7 +18,7 @@ namespace EventManagerClient.Presentation.View
             _userRepository = userRepository;
             _parentViewModel = parentViewModel;
 
-            DataContext = _user; 
+            DataContext = _user;
            
         }
 

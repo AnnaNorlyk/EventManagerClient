@@ -30,6 +30,7 @@ namespace EventManagerClient
             services.AddSingleton<DeleteUserUseCase>();
             services.AddSingleton<EditUserUseCase>();
             services.AddSingleton<CreateUserUseCase>();
+            services.AddSingleton<EditEventUseCase>();
 
             // Register view models
             services.AddSingleton<EventsViewModel>();

@@ -1,26 +1,26 @@
 ﻿using EventManagerClient.Domain.Entities;
 using EventManagerClient.Presentation.ViewModels;
+using EventManagerClient.AppLayer.UseCases.Events;
+
 using System.Windows;
 
 namespace EventManagerClient.Presentation.View
 {
-    /// <summary>
-    /// Interaction logic for EventEditWindow.xaml
-    /// </summary>
+
     public partial class EventEditWindow : Window
     {
-        private readonly IEventRepository _eventRepository;
+        private readonly EditEventUseCase _editEventUseCase;
         private readonly EventsViewModel _parentViewModel;
-        private Event _events; 
-        public EventEditWindow(Event events, IEventRepository eventRepository, EventsViewModel parentViewModel)
+        private Event _event;
+
+        public EventEditWindow(Event selectedEvent, EditEventUseCase editEventUseCase, EventsViewModel parentViewModel)
         {
             InitializeComponent();
-            _events = events; 
+            _event = selectedEvent;
+            _editEventUseCase = editEventUseCase;
             _parentViewModel = parentViewModel;
-            _eventRepository = eventRepository;
 
-            DataContext = _events; 
-
+            DataContext = _event;
         }
 
 

@@ -2,6 +2,7 @@
 using EventManagerClient.Domain.Entities;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Text;
 
 public class EventApiService
 {
@@ -36,8 +37,36 @@ public class EventApiService
     }
 
 
+    public async Task UpdateEventAsync(Event updatedEvent)
+    {
+        var dto = new EventDto
+        {
+            EventId = updatedEvent.EventId,
+            EventName = updatedEvent.EventName,
+            EventDescription = updatedEvent.EventDescription,
+            EventCategory = updatedEvent.EventCategory,
+            EventStart = updatedEvent.EventStart,
+            EventEnd = updatedEvent.EventEnd,
+            EventStatus = updatedEvent.EventStatus,
+            EventLocation = updatedEvent.EventLocation,
+            UserId = updatedEvent.UserId
+        };
 
+        var jsonContent = new StringContent(
+            JsonConvert.SerializeObject(dto),
+            Encoding.UTF8,
+            "application/json"
+        );
 
+        var response = await _httpClient.PutAsync($"events/{updatedEvent.EventId}", jsonContent);
+        response.EnsureSuccessStatusCode();
+    }
+
+    public async Task DeleteEventAsync(string eventId)
+    {
+        var response = await _httpClient.DeleteAsync($"events/{eventId}");
+        response.EnsureSuccessStatusCode();
+    }
 
     public async Task<Event> GetEventByIdAsync(int id)
     {

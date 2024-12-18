@@ -12,6 +12,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -21,27 +24,36 @@
 
 
         <!-- FirstName -->
-        <Label Content="First Name:" Grid.Row="2" />
-        <TextBox Text="{Binding Firstname, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="100,0,0,0" />
+        <Label Content="Event name:" Grid.Row="2" />
+        <TextBox Text="{Binding EventName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="100,0,0,0" />
 
         <!-- LastName -->
-        <Label Content="Last Name:" Grid.Row="3" />
-        <TextBox Text="{Binding Lastname, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Margin="100,0,0,0" />
+        <Label Content="Description:" Grid.Row="3" />
+        <TextBox Text="{Binding EventDescription, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Margin="100,0,0,0" />
 
         <!-- UserEmail -->
-        <Label Content="Email:" Grid.Row="4" />
-        <TextBox Text="{Binding UserEmail, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Margin="100,0,0,0" />
+        <Label Content="Category:" Grid.Row="4" />
+        <TextBox Text="{Binding EventCategory, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Margin="100,0,0,0" />
 
         <!-- UserPassword -->
-        <Label Content="Password:" Grid.Row="5" />
-        <TextBox Text="{Binding UserPassword, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Margin="100,0,0,0" />
+        <Label Content="EventStart:" Grid.Row="5" />
+        <TextBox Text="{Binding EventStart, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Margin="100,0,0,0" />
 
         <!-- EventCount -->
-        <Label Content="Event Count:" Grid.Row="6" />
-        <TextBox Text="{Binding EventCount, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" Margin="100,0,0,0" />
-
+        <Label Content="EventEnd:" Grid.Row="6" />
+        <TextBox Text="{Binding EventEnd, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" Margin="100,0,0,0" />
+        
+        <Label Content="Location:" Grid.Row="7" />
+        <TextBox Text="{Binding EventLocation, UpdateSourceTrigger=PropertyChanged}" Grid.Row="7" Margin="100,0,0,0" />
+        
+        <Label Content="UserId:" Grid.Row="8" />
+        <TextBox Text="{Binding UserId, UpdateSourceTrigger=PropertyChanged}" Grid.Row="8" Margin="100,0,0,0" IsReadOnly="True"/>
+        
+        <Label Content="EventStatus:" Grid.Row="9" />
+        <TextBox Text="{Binding EventStatus, UpdateSourceTrigger=PropertyChanged}" Grid.Row="9" Margin="100,0,0,0" IsReadOnly="True"/>
+    
         <!-- Save Button -->
-        <Button Content="Save" Width="80" Grid.Row="7" HorizontalAlignment="Right" Margin="0,10,0,0"
+        <Button Content="Save" Width="80" Grid.Row="10" HorizontalAlignment="Right" Margin="0,10,0,0"
                 />
     </Grid>
 </Window>
