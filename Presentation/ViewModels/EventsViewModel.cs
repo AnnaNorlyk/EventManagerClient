@@ -13,13 +13,14 @@ namespace EventManagerClient.Presentation.ViewModels
 {
     public class EventsViewModel : BaseViewModel
     {
-        private readonly GetEventsUseCase _getEventsUseCase;
-        private readonly EditEventUseCase _editEventUseCase;
-        private readonly EventRepository _eventRepository;
+        private readonly GetEventsUseCase _getEventsUseCase; // Use case to fetch events
+        private readonly EditEventUseCase _editEventUseCase; // Use case to edit events
+        private readonly EventRepository _eventRepository; // Repository for event data operations
 
-        public ObservableCollection<Event> Events { get; private set; } // All Events
+        public ObservableCollection<Event> Events { get; private set; } // All events
         public ObservableCollection<Event> PendingEvents { get; private set; } // Events with "Pending" status
 
+        // Commands for various event actions
         public ICommand LoadEventsCommand { get; }
         public ICommand ApproveCommand { get; }
         public ICommand RejectCommand { get; }
@@ -27,7 +28,7 @@ namespace EventManagerClient.Presentation.ViewModels
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
 
-        private Event _selectedEvent;
+        private Event _selectedEvent; // Selected event for actions like edit or delete
         public Event SelectedEvent
         {
             get => _selectedEvent;
@@ -38,7 +39,7 @@ namespace EventManagerClient.Presentation.ViewModels
             }
         }
 
-        private Event _selectedPendingEvent;
+        private Event _selectedPendingEvent; // Selected pending event for approval or rejection
         public Event SelectedPendingEvent
         {
             get => _selectedPendingEvent;
@@ -49,6 +50,7 @@ namespace EventManagerClient.Presentation.ViewModels
             }
         }
 
+        // Constructor to initialize dependencies and commands
         public EventsViewModel(GetEventsUseCase getEventsUseCase, EditEventUseCase editEventUseCase, IEventRepository eventRepository)
         {
             _getEventsUseCase = getEventsUseCase;
@@ -58,6 +60,7 @@ namespace EventManagerClient.Presentation.ViewModels
             Events = new ObservableCollection<Event>();
             PendingEvents = new ObservableCollection<Event>();
 
+            // Initialize commands
             LoadEventsCommand = new RelayCommand(async (param) => await LoadEventsAsync());
             ApproveCommand = new RelayCommand(async (param) => await ApprovePendingEventAsync(), (param) => SelectedPendingEvent != null);
             RejectCommand = new RelayCommand(async (param) => await RejectPendingEventAsync(), (param) => SelectedPendingEvent != null);
@@ -66,7 +69,7 @@ namespace EventManagerClient.Presentation.ViewModels
             DeleteCommand = new RelayCommand(DeleteEvent);
         }
 
-
+        // Load all events and segregate pending events
         private async Task LoadEventsAsync()
         {
             try
@@ -76,6 +79,7 @@ namespace EventManagerClient.Presentation.ViewModels
                 Events.Clear();
                 PendingEvents.Clear();
 
+                // Add events to respective collections
                 foreach (var evt in events)
                 {
                     Events.Add(evt);
@@ -88,12 +92,12 @@ namespace EventManagerClient.Presentation.ViewModels
             }
             catch (Exception ex)
             {
-                
+                // Show error message on failure
                 MessageBox.Show($"Failed to load events. Details: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-     
+        // Approve the selected pending event
         private async Task ApprovePendingEventAsync()
         {
             if (SelectedPendingEvent == null)
@@ -104,20 +108,23 @@ namespace EventManagerClient.Presentation.ViewModels
 
             try
             {
-                
+                // Update event status to "Approved"
                 SelectedPendingEvent.EventStatus = "Approved";
                 await _editEventUseCase.Execute(SelectedPendingEvent);
+
+                // Remove event from pending collection
                 PendingEvents.Remove(SelectedPendingEvent);
 
                 MessageBox.Show("Event approved successfully!", "Success");
             }
             catch (Exception ex)
             {
+                // Show error message on failure
                 MessageBox.Show($"Error approving event: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-    
+        // Reject the selected pending event
         private async Task RejectPendingEventAsync()
         {
             if (SelectedPendingEvent == null)
@@ -128,27 +135,31 @@ namespace EventManagerClient.Presentation.ViewModels
 
             try
             {
-                
+                // Delete the event from repository
                 await _eventRepository.DeleteEventAsync(SelectedPendingEvent.EventId);
 
-                
+                // Remove event from pending collection
                 PendingEvents.Remove(SelectedPendingEvent);
 
                 MessageBox.Show("Event rejected and deleted successfully!", "Success");
             }
             catch (Exception ex)
             {
+                // Show error message on failure
                 MessageBox.Show($"Error rejecting event: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        // Navigate back by closing the current window
         private void Back()
         {
             Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)?.Close();
         }
 
+        // Check if editing is allowed (event selected)
         private bool CanEditEvent(object param) => SelectedEvent != null;
 
+        // Open a window to edit the selected event
         private void EditEvent(object param)
         {
             if (SelectedEvent == null) return;
@@ -157,6 +168,7 @@ namespace EventManagerClient.Presentation.ViewModels
             editWindow.ShowDialog();
         }
 
+        // Delete the selected event
         private async void DeleteEvent(object parameter)
         {
             if (SelectedEvent == null)
@@ -172,20 +184,18 @@ namespace EventManagerClient.Presentation.ViewModels
             {
                 try
                 {
-                    
+                    // Delete event from repository
                     await _eventRepository.DeleteEventAsync(SelectedEvent.EventId);
 
-                   
+                    // Remove event from collection
                     Events.Remove(SelectedEvent);
-
-                   
                 }
                 catch (Exception ex)
                 {
+                    // Show error message on failure
                     MessageBox.Show($"Error deleting event: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
-
     }
 }

@@ -12,23 +12,21 @@ namespace EventManagerClient.Presentation.ViewModels
 {
     public class UsersViewModel : BaseViewModel
     {
-        private readonly IUserRepository _userRepository;
-        private readonly CreateUserUseCase _createUserUseCase;
+        private readonly IUserRepository _userRepository; // Interface for user data operations
+        private readonly CreateUserUseCase _createUserUseCase; // Use case for creating a new user
 
-        public ObservableCollection<User> Users { get; private set; } // All users
-        public ObservableCollection<User> PendingUsers { get; private set; } // Users needing approval
+        public ObservableCollection<User> Users { get; private set; } // Collection of all users
+        public ObservableCollection<User> PendingUsers { get; private set; } // Collection of users pending approval
 
+        // Commands for various user actions
         public ICommand LoadUsersCommand { get; }
         public ICommand ApproveUserCommand { get; }
         public ICommand EditUserCommand { get; }
         public ICommand DeleteUserCommand { get; }
         public ICommand CreateUserCommand { get; }
-
         public ICommand BackCommand { get; }
 
-
-
-        private User _selectedPendingUser;
+        private User _selectedPendingUser; // Selected user for approval
         public User SelectedPendingUser
         {
             get => _selectedPendingUser;
@@ -39,7 +37,7 @@ namespace EventManagerClient.Presentation.ViewModels
             }
         }
 
-        private User _selectedUser;
+        private User _selectedUser; // Selected user for editing or deletion
         public User SelectedUser
         {
             get => _selectedUser;
@@ -50,6 +48,7 @@ namespace EventManagerClient.Presentation.ViewModels
             }
         }
 
+        // Constructor to initialize dependencies and commands
         public UsersViewModel(IUserRepository userRepository, CreateUserUseCase createUserUseCase)
         {
             _userRepository = userRepository;
@@ -58,6 +57,7 @@ namespace EventManagerClient.Presentation.ViewModels
             Users = new ObservableCollection<User>();
             PendingUsers = new ObservableCollection<User>();
 
+            // Initialize commands with their respective actions
             LoadUsersCommand = new RelayCommand(async (param) => await LoadUsersAsync());
             ApproveUserCommand = new RelayCommand(async (param) => await ApproveUserAsync(), (param) => SelectedPendingUser != null);
             EditUserCommand = new RelayCommand(OpenEditUserWindow, CanEditUser);
@@ -66,26 +66,30 @@ namespace EventManagerClient.Presentation.ViewModels
             BackCommand = new RelayCommand(_ => NavigateBack());
         }
 
+        // Check if editing is allowed (user selected)
         private bool CanEditUser(object param) => SelectedUser != null;
 
+        // Open a window for editing the selected user
         private void OpenEditUserWindow(object param)
         {
             var editWindow = new EditUserWindow(SelectedUser, _userRepository, this);
             editWindow.ShowDialog();
         }
 
+        // Open a window for creating a new user
         private void OpenCreateUserWindow()
         {
             var createWindow = new NewUserWindow(_createUserUseCase, this);
             createWindow.ShowDialog();
         }
 
+        // Navigate back by closing the current window
         private void NavigateBack()
         {
             Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)?.Close();
         }
 
-
+        // Load all users and segregate pending users
         private async Task LoadUsersAsync()
         {
             try
@@ -94,11 +98,11 @@ namespace EventManagerClient.Presentation.ViewModels
                 Users.Clear();
                 PendingUsers.Clear();
 
+                // Add users to collections based on their roles
                 foreach (var user in users)
                 {
                     Users.Add(user);
 
-                    
                     if (user.Role != "EventHolder")
                     {
                         PendingUsers.Add(user);
@@ -111,6 +115,7 @@ namespace EventManagerClient.Presentation.ViewModels
             }
         }
 
+        // Approve the selected pending user
         private async Task ApproveUserAsync()
         {
             if (SelectedPendingUser == null)
@@ -121,11 +126,11 @@ namespace EventManagerClient.Presentation.ViewModels
 
             try
             {
-               
+                // Change user role to approved and update in repository
                 SelectedPendingUser.Role = "EventHolder";
                 await _userRepository.UpdateUserAsync(SelectedPendingUser);
 
-               
+                // Remove user from pending collection
                 PendingUsers.Remove(SelectedPendingUser);
 
                 MessageBox.Show("User approved successfully!", "Success");
@@ -136,6 +141,7 @@ namespace EventManagerClient.Presentation.ViewModels
             }
         }
 
+        // Delete the selected user
         private async Task DeleteUserAsync()
         {
             if (SelectedUser == null)
@@ -146,6 +152,7 @@ namespace EventManagerClient.Presentation.ViewModels
 
             try
             {
+                // Delete user from repository and collection
                 await _userRepository.DeleteUserAsync(SelectedUser.UserId);
 
                 Users.Remove(SelectedUser);
