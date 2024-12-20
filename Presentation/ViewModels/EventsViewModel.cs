@@ -1,6 +1,6 @@
 ﻿using EventManagerClient.AppLayer.UseCases.Events;
 using EventManagerClient.Domain.Entities;
-using EventManagerClient.Domain.Interfaces;
+using EventManagerClient.Infrastructure.Repositories;
 using EventManagerClient.Presentation.Commands;
 using EventManagerClient.Presentation.View;
 using System;
@@ -15,7 +15,7 @@ namespace EventManagerClient.Presentation.ViewModels
     {
         private readonly GetEventsUseCase _getEventsUseCase;
         private readonly EditEventUseCase _editEventUseCase;
-        private readonly IEventRepository _eventRepository;
+        private readonly EventRepository _eventRepository;
 
         public ObservableCollection<Event> Events { get; private set; } // All Events
         public ObservableCollection<Event> PendingEvents { get; private set; } // Events with "Pending" status
@@ -49,14 +49,11 @@ namespace EventManagerClient.Presentation.ViewModels
             }
         }
 
-        public EventsViewModel(
-            GetEventsUseCase getEventsUseCase,
-            EditEventUseCase editEventUseCase,
-            IEventRepository eventRepository)
+        public EventsViewModel(GetEventsUseCase getEventsUseCase, EditEventUseCase editEventUseCase, IEventRepository eventRepository)
         {
             _getEventsUseCase = getEventsUseCase;
             _editEventUseCase = editEventUseCase;
-            _eventRepository = eventRepository;
+            _eventRepository = (EventRepository?)eventRepository;
 
             Events = new ObservableCollection<Event>();
             PendingEvents = new ObservableCollection<Event>();
@@ -64,14 +61,12 @@ namespace EventManagerClient.Presentation.ViewModels
             LoadEventsCommand = new RelayCommand(async (param) => await LoadEventsAsync());
             ApproveCommand = new RelayCommand(async (param) => await ApprovePendingEventAsync(), (param) => SelectedPendingEvent != null);
             RejectCommand = new RelayCommand(async (param) => await RejectPendingEventAsync(), (param) => SelectedPendingEvent != null);
-            BackCommand = new RelayCommand(Back);
+            BackCommand = new RelayCommand(_ => Back());
             EditCommand = new RelayCommand(EditEvent, CanEditEvent);
             DeleteCommand = new RelayCommand(DeleteEvent);
         }
 
-        /// <summary>
-        /// Loads all events and filters pending events for the PendingEvents list.
-        /// </summary>
+
         private async Task LoadEventsAsync()
         {
             try
@@ -85,7 +80,6 @@ namespace EventManagerClient.Presentation.ViewModels
                 {
                     Events.Add(evt);
 
-                    // Filter events with "Pending" status
                     if (evt.EventStatus == "Pending")
                     {
                         PendingEvents.Add(evt);
@@ -94,14 +88,12 @@ namespace EventManagerClient.Presentation.ViewModels
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading events: {ex.Message}");
+                
                 MessageBox.Show($"Failed to load events. Details: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        /// <summary>
-        /// Approves the selected pending event by updating its status to "Approved".
-        /// </summary>
+     
         private async Task ApprovePendingEventAsync()
         {
             if (SelectedPendingEvent == null)
@@ -112,11 +104,9 @@ namespace EventManagerClient.Presentation.ViewModels
 
             try
             {
-                // Update the status of the selected event
+                
                 SelectedPendingEvent.EventStatus = "Approved";
                 await _editEventUseCase.Execute(SelectedPendingEvent);
-
-                // Remove the event from the PendingEvents list
                 PendingEvents.Remove(SelectedPendingEvent);
 
                 MessageBox.Show("Event approved successfully!", "Success");
@@ -127,9 +117,7 @@ namespace EventManagerClient.Presentation.ViewModels
             }
         }
 
-        /// <summary>
-        /// Rejects the selected pending event by deleting it.
-        /// </summary>
+    
         private async Task RejectPendingEventAsync()
         {
             if (SelectedPendingEvent == null)
@@ -140,10 +128,10 @@ namespace EventManagerClient.Presentation.ViewModels
 
             try
             {
-                // Delete the event from the backend
+                
                 await _eventRepository.DeleteEventAsync(SelectedPendingEvent.EventId);
 
-                // Remove the event from the PendingEvents list
+                
                 PendingEvents.Remove(SelectedPendingEvent);
 
                 MessageBox.Show("Event rejected and deleted successfully!", "Success");
@@ -154,9 +142,9 @@ namespace EventManagerClient.Presentation.ViewModels
             }
         }
 
-        private void Back(object parameter)
+        private void Back()
         {
-            MessageBox.Show("Going back.");
+            Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)?.Close();
         }
 
         private bool CanEditEvent(object param) => SelectedEvent != null;
@@ -169,7 +157,7 @@ namespace EventManagerClient.Presentation.ViewModels
             editWindow.ShowDialog();
         }
 
-        private void DeleteEvent(object parameter)
+        private async void DeleteEvent(object parameter)
         {
             if (SelectedEvent == null)
             {
@@ -177,8 +165,27 @@ namespace EventManagerClient.Presentation.ViewModels
                 return;
             }
 
-            // Simulate deletion (implement backend deletion if needed)
-            MessageBox.Show($"Deleted event: {SelectedEvent.EventName}", "Deleted");
+            var result = MessageBox.Show($"Are you sure you want to delete the event '{SelectedEvent.EventName}'?",
+                                          "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    
+                    await _eventRepository.DeleteEventAsync(SelectedEvent.EventId);
+
+                   
+                    Events.Remove(SelectedEvent);
+
+                   
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting event: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
+
     }
 }

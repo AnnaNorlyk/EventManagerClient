@@ -22,10 +22,6 @@ namespace EventManagerClient.Presentation.View
             DataContext = _newUser;
         }
 
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            _newUser.UserPassword = ((PasswordBox)sender).Password;
-        }
 
         private async void CreateButton_Click(object sender, RoutedEventArgs e)
         {
@@ -34,7 +30,7 @@ namespace EventManagerClient.Presentation.View
                 await _createUserUseCase.Execute(_newUser);
                 MessageBox.Show("User created successfully!", "Success");
 
-                // Refresh parent ViewModel
+                
                 if (_parentViewModel.LoadUsersCommand.CanExecute(null))
                     _parentViewModel.LoadUsersCommand.Execute(null);
 

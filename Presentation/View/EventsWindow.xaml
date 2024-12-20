@@ -27,6 +27,7 @@
                    FontSize="16" 
                    Margin="0,24,0,0"/>
             <!-- Left-Side Pending Events Section -->
+         
             <ScrollViewer Name="RequestScrollViewer" 
               VerticalScrollBarVisibility="Auto" 
               Margin="0,59,0,0" Grid.Row="0">
@@ -41,6 +42,8 @@
                                 DisplayMemberBinding="{Binding EventDescription}" />
                             <GridViewColumn Header="Requester" 
                                 DisplayMemberBinding="{Binding UserId}" />
+                            <GridViewColumn Header="Description" 
+                                DisplayMemberBinding="{Binding EventDescription}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -56,20 +59,17 @@
             Width="100" 
             Margin="5" 
             Command="{Binding ApproveCommand}" />
-                
-            <Button Name="RejectButton" 
-                    Command="{Binding RejectCommand}"
+                <Button Name="RejectButton" 
             Content="Reject" 
             Width="100" 
-            Margin="5" />
+            Margin="5"
+            Command="{Binding RejectCommand}"/>
             </StackPanel>
 
-            <Button Name="BackButton" 
-                    Content="Back" 
-                    HorizontalAlignment="Left" 
-                    Margin="2,-2,0,0" 
-                    VerticalAlignment="Top" 
-                    Width="100" Command="{Binding BackCommand}" />
+
+            <Button Content="Back" Grid.Row="2" Grid.ColumnSpan="2" Width="120" Height="40" 
+                HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                Command="{Binding BackCommand}" />
         </Grid>
 
         <!-- Events Section -->

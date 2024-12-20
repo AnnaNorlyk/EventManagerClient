@@ -12,8 +12,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Label Content="User Name:" Grid.Row="0" />
-        <TextBox Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="100,0,0,0" />
 
         <Label Content="First Name:" Grid.Row="1" />
         <TextBox Text="{Binding Firstname, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="100,0,0,0" />

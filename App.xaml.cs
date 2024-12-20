@@ -35,6 +35,9 @@ namespace EventManagerClient
             // Register view models
             services.AddSingleton<EventsViewModel>();
             services.AddSingleton<UsersViewModel>();
+            services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<EditUserViewModel>();
+
 
             // Register views
             services.AddSingleton<MainWindow>();

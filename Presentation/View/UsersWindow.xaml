@@ -12,7 +12,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2.5*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="400" />
         </Grid.ColumnDefinitions>
 
         <!-- Pending Users Section -->
@@ -22,6 +22,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
+            <Button Content="Back" Grid.Row="2" Grid.ColumnSpan="2" Width="120" Height="40" 
+                HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                Command="{Binding BackCommand}" />
             <!-- Label -->
             <Label Content="Pending Users" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="0,24,0,0"/>
 

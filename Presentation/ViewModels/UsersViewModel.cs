@@ -24,6 +24,10 @@ namespace EventManagerClient.Presentation.ViewModels
         public ICommand DeleteUserCommand { get; }
         public ICommand CreateUserCommand { get; }
 
+        public ICommand BackCommand { get; }
+
+
+
         private User _selectedPendingUser;
         public User SelectedPendingUser
         {
@@ -59,6 +63,7 @@ namespace EventManagerClient.Presentation.ViewModels
             EditUserCommand = new RelayCommand(OpenEditUserWindow, CanEditUser);
             DeleteUserCommand = new RelayCommand(async (param) => await DeleteUserAsync());
             CreateUserCommand = new RelayCommand(_ => OpenCreateUserWindow());
+            BackCommand = new RelayCommand(_ => NavigateBack());
         }
 
         private bool CanEditUser(object param) => SelectedUser != null;
@@ -75,6 +80,12 @@ namespace EventManagerClient.Presentation.ViewModels
             createWindow.ShowDialog();
         }
 
+        private void NavigateBack()
+        {
+            Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)?.Close();
+        }
+
+
         private async Task LoadUsersAsync()
         {
             try
@@ -87,7 +98,7 @@ namespace EventManagerClient.Presentation.ViewModels
                 {
                     Users.Add(user);
 
-                    // Add users who are not "EventHolder" to PendingUsers
+                    
                     if (user.Role != "EventHolder")
                     {
                         PendingUsers.Add(user);
@@ -110,11 +121,11 @@ namespace EventManagerClient.Presentation.ViewModels
 
             try
             {
-                // Update the role to "EventHolder"
+               
                 SelectedPendingUser.Role = "EventHolder";
                 await _userRepository.UpdateUserAsync(SelectedPendingUser);
 
-                // Remove the approved user from PendingUsers
+               
                 PendingUsers.Remove(SelectedPendingUser);
 
                 MessageBox.Show("User approved successfully!", "Success");
