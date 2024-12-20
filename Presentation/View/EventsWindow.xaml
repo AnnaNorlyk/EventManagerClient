@@ -7,7 +7,8 @@
         d:DataContext="{d:DesignInstance Type=viewmodels:EventsViewModel}"
         mc:Ignorable="d"
         Title="Begivenheder" Height="450" Width="800"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <!-- Layout for Events and Requests -->
         <Grid.ColumnDefinitions>

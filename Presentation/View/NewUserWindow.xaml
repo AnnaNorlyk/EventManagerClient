@@ -1,7 +1,8 @@
 ﻿<Window x:Class="EventManagerClient.Presentation.View.NewUserWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="New User" Height="300" Width="400">
+        Title="New User" Height="300" Width="400"
+        WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
